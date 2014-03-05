@@ -21,7 +21,7 @@ namespace WhatWasIDoing
             this.time = DateTime.Now;
         }
 
-        public string ToString()
+        public override string ToString()
         {
             return time.ToString("HH:mm") + " - " + text;
         }
