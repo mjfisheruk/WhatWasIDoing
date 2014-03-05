@@ -38,9 +38,10 @@ namespace WhatWasIDoing
         
         public void SaveEntry(LogEntry entry)
         {
-            if (!Directory.Exists(baseDirectory))
+            String dir = entryDirectory(entry.Time);
+            if (!Directory.Exists(dir))
             {
-                Directory.CreateDirectory(baseDirectory);
+                Directory.CreateDirectory(dir);
             }
 
             String path = entryPath(entry.Time);
@@ -61,7 +62,9 @@ namespace WhatWasIDoing
 
         private string entryDirectory(DateTime dateTime)
         {
-            return baseDirectory;
+            var year = dateTime.ToString("yyyy");
+            var month = dateTime.ToString("MMM");
+            return baseDirectory + "\\" + year + "\\" + month;
         }
 
         private string entryPath(DateTime dateTime)
