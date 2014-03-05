@@ -35,14 +35,14 @@ namespace WhatWasIDoing
             writer.Close();
         }
 
+        public void logStartup()
+        {
+            SaveEntry("[Startup]");
+        }
+        
         public void logShutdown()
         {
             SaveEntry("[Shutdown]");
-        }
-
-        public void logStart()
-        {
-            SaveEntry("[Startup]");
         }
 
         private string entryDirectory(LogEntry entry)

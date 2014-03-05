@@ -23,7 +23,7 @@ namespace WhatWasIDoing
             String homeDirectory = Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%");
             String saveDirectory = homeDirectory + "\\WhatWasIDoing";
             timeLog = new TimeLog(saveDirectory);
-            timeLog.logStart();
+            timeLog.logStartup();
         }
 
         protected override void SetVisibleCore(bool value)
