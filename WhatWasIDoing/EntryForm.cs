@@ -23,7 +23,7 @@ namespace WhatWasIDoing
             String homeDirectory = Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%");
             String saveDirectory = homeDirectory + "\\WhatWasIDoing";
             timeLog = new TimeLog(saveDirectory);
-            timeLog.logStartup();
+            timeLog.LogStartup();
         }
 
         protected override void SetVisibleCore(bool value)
@@ -33,6 +33,12 @@ namespace WhatWasIDoing
                 value = false;
                 firstTimeRunning = false;
             }
+            
+            if(timeLog.HasLastEntry)
+            {
+                lastEntryLabel.Text = timeLog.LastEntry.Text;
+            }
+            
             base.SetVisibleCore(value);
         }
 
@@ -57,7 +63,7 @@ namespace WhatWasIDoing
             }
             else
             {
-                timeLog.logShutdown();
+                timeLog.LogShutdown();
             }
         }
 

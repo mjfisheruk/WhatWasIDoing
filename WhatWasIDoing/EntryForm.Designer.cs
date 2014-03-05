@@ -38,6 +38,8 @@
             this.iconContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.quitMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reminderTimer = new System.Windows.Forms.Timer(this.components);
+            this.label2 = new System.Windows.Forms.Label();
+            this.lastEntryLabel = new System.Windows.Forms.Label();
             this.iconContextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -90,12 +92,12 @@
             this.iconContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.quitMenuItem});
             this.iconContextMenu.Name = "iconContextMenu";
-            this.iconContextMenu.Size = new System.Drawing.Size(153, 48);
+            this.iconContextMenu.Size = new System.Drawing.Size(98, 26);
             // 
             // quitMenuItem
             // 
             this.quitMenuItem.Name = "quitMenuItem";
-            this.quitMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.quitMenuItem.Size = new System.Drawing.Size(97, 22);
             this.quitMenuItem.Text = "&Quit";
             this.quitMenuItem.Click += new System.EventHandler(this.quitMenuItem_Click);
             // 
@@ -105,12 +107,32 @@
             this.reminderTimer.Interval = 1800000;
             this.reminderTimer.Tick += new System.EventHandler(this.reminderTimer_Tick);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(16, 64);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(56, 13);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "Last entry:";
+            // 
+            // lastEntryLabel
+            // 
+            this.lastEntryLabel.AutoSize = true;
+            this.lastEntryLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lastEntryLabel.Location = new System.Drawing.Point(78, 64);
+            this.lastEntryLabel.Name = "lastEntryLabel";
+            this.lastEntryLabel.Size = new System.Drawing.Size(0, 13);
+            this.lastEntryLabel.TabIndex = 5;
+            // 
             // EntryForm
             // 
             this.AcceptButton = this.saveButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 92);
+            this.Controls.Add(this.lastEntryLabel);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.activityTextBox);
@@ -141,6 +163,8 @@
         private System.Windows.Forms.Timer reminderTimer;
         private System.Windows.Forms.ContextMenuStrip iconContextMenu;
         private System.Windows.Forms.ToolStripMenuItem quitMenuItem;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lastEntryLabel;
     }
 }
 

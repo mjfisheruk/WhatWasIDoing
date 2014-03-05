@@ -10,6 +10,22 @@ namespace WhatWasIDoing
     {
         String baseDirectory;
 
+        public bool HasLastEntry
+        {
+            get
+            {
+                return entriesToday().Count != 0;
+            }
+        }
+
+        public LogEntry LastEntry
+        {
+            get
+            {
+                return entriesToday().Last();
+            }
+        }
+
         public TimeLog(String baseDirectory)
         {
             this.baseDirectory = baseDirectory;
@@ -27,28 +43,44 @@ namespace WhatWasIDoing
                 Directory.CreateDirectory(baseDirectory);
             }
 
-            String dir = entryDirectory(entry);
-            String path = dir + "\\" + entry.Time.ToString("yyyy-MM-dd") + ".txt";
-            
+            String path = entryPath(entry.Time);
             TextWriter writer = File.AppendText(path);
-            writer.WriteLine(entry.Time.ToString("HH:mm") + " - " + entry.Text);
+            writer.WriteLine(entry.ToString());
             writer.Close();
         }
 
-        public void logStartup()
+        public void LogStartup()
         {
             SaveEntry("[Startup]");
         }
         
-        public void logShutdown()
+        public void LogShutdown()
         {
             SaveEntry("[Shutdown]");
         }
 
-        private string entryDirectory(LogEntry entry)
+        private string entryDirectory(DateTime dateTime)
         {
             return baseDirectory;
         }
 
+        private string entryPath(DateTime dateTime)
+        {
+            return entryDirectory(dateTime) + "\\" + dateTime.ToString("yyyy-MM-dd") + ".txt";
+        }
+
+        private List<LogEntry> entriesToday()
+        {
+            var result = new List<LogEntry>();
+                
+            String path = entryPath(DateTime.Now);
+            string[] lines = File.ReadAllLines(path);
+            foreach (var line in lines)
+            {
+                result.Add(LogEntry.FromString(line, DateTime.Now.Date));
+            }
+
+            return result;
+        }
     }
 }
