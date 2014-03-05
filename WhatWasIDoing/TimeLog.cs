@@ -17,16 +17,31 @@ namespace WhatWasIDoing
 
         public void SaveActivity(String text)
         {
-            if(!Directory.Exists(saveDirectory))
+            SaveActivity(new LogEntry(text));
+        }
+
+        public void logStart()
+        {
+            SaveActivity("[Startup]");
+        }
+
+        private void SaveActivity(LogEntry activity)
+        {
+            if (!Directory.Exists(saveDirectory))
             {
                 Directory.CreateDirectory(saveDirectory);
             }
 
-            String fileName = saveDirectory + "\\" + DateTime.Now.ToString("yyyy-MM-dd") + ".txt";
+            String fileName = saveDirectory + "\\" + activity.Time.ToString("yyyy-MM-dd") + ".txt";
             String timeStamp = DateTime.Now.ToString("HH:mm");
             TextWriter writer = File.AppendText(fileName);
-            writer.WriteLine(timeStamp + " - " + text);
+            writer.WriteLine(timeStamp + " - " + activity.Text);
             writer.Close();
+        }
+
+        internal void logShutdown()
+        {
+            SaveActivity("[Shutdown]");
         }
     }
 }

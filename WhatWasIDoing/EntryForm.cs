@@ -11,26 +11,27 @@ namespace WhatWasIDoing
 {
     public partial class EntryForm : Form
     {
-        bool setVisibleCoreStartup;
-        bool closeRequestFromMenu;
+        bool firstTimeRunning;
+        bool closeRequestedFromMenu;
         TimeLog timeLog;
 
         public EntryForm()
         {
-            setVisibleCoreStartup = true;
-            closeRequestFromMenu = false;
+            firstTimeRunning = true;
+            closeRequestedFromMenu = false;
             InitializeComponent();
             String homeDirectory = Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%");
             String saveDirectory = homeDirectory + "\\WhatWasIDoing";
             timeLog = new TimeLog(saveDirectory);
+            timeLog.logStart();
         }
 
         protected override void SetVisibleCore(bool value)
         {
-            if (setVisibleCoreStartup)
+            if (firstTimeRunning)
             {
                 value = false;
-                setVisibleCoreStartup = false;
+                firstTimeRunning = false;
             }
             base.SetVisibleCore(value);
         }
@@ -49,10 +50,14 @@ namespace WhatWasIDoing
 
         private void EntryForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!closeRequestFromMenu)
+            if (!closeRequestedFromMenu)
             {
                 e.Cancel = true;
                 Hide();
+            }
+            else
+            {
+                timeLog.logShutdown();
             }
         }
 
@@ -76,7 +81,7 @@ namespace WhatWasIDoing
 
         private void quitMenuItem_Click(object sender, EventArgs e)
         {
-            closeRequestFromMenu = true;
+            closeRequestedFromMenu = true;
             Close();
         }
     }
