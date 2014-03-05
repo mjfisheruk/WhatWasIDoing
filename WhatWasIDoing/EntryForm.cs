@@ -69,7 +69,7 @@ namespace WhatWasIDoing
 
         private void saveButton_Click(object sender, EventArgs e)
         {
-            timeLog.SaveActivity(activityTextBox.Text);
+            timeLog.SaveEntry(activityTextBox.Text);
             activityTextBox.Text = "";
             hideAndResetTimer();
         }

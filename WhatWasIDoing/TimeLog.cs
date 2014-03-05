@@ -8,40 +8,47 @@ namespace WhatWasIDoing
 {
     class TimeLog
     {
-        String saveDirectory;
+        String baseDirectory;
 
-        public TimeLog(String saveDirectory)
+        public TimeLog(String baseDirectory)
         {
-            this.saveDirectory = saveDirectory;
+            this.baseDirectory = baseDirectory;
         }
 
-        public void SaveActivity(String text)
+        public void SaveEntry(String text)
         {
-            SaveActivity(new LogEntry(text));
+            SaveEntry(new LogEntry(text));
+        }
+        
+        public void SaveEntry(LogEntry entry)
+        {
+            if (!Directory.Exists(baseDirectory))
+            {
+                Directory.CreateDirectory(baseDirectory);
+            }
+
+            String dir = entryDirectory(entry);
+            String path = dir + "\\" + entry.Time.ToString("yyyy-MM-dd") + ".txt";
+            
+            TextWriter writer = File.AppendText(path);
+            writer.WriteLine(entry.Time.ToString("HH:mm") + " - " + entry.Text);
+            writer.Close();
+        }
+
+        public void logShutdown()
+        {
+            SaveEntry("[Shutdown]");
         }
 
         public void logStart()
         {
-            SaveActivity("[Startup]");
+            SaveEntry("[Startup]");
         }
 
-        private void SaveActivity(LogEntry activity)
+        private string entryDirectory(LogEntry entry)
         {
-            if (!Directory.Exists(saveDirectory))
-            {
-                Directory.CreateDirectory(saveDirectory);
-            }
-
-            String fileName = saveDirectory + "\\" + activity.Time.ToString("yyyy-MM-dd") + ".txt";
-            String timeStamp = DateTime.Now.ToString("HH:mm");
-            TextWriter writer = File.AppendText(fileName);
-            writer.WriteLine(timeStamp + " - " + activity.Text);
-            writer.Close();
+            return baseDirectory;
         }
 
-        internal void logShutdown()
-        {
-            SaveActivity("[Shutdown]");
-        }
     }
 }
