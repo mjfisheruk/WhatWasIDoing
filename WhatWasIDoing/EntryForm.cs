@@ -52,6 +52,7 @@ namespace WhatWasIDoing
         private void notifyIcon_Click(object sender, EventArgs e)
         {
             Show();
+            activityTextBox.Text = "";
         }
 
         private void EntryForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -89,6 +90,19 @@ namespace WhatWasIDoing
         {
             closeRequestedFromMenu = true;
             Close();
+        }
+
+        private void activityTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Down)
+            {
+                activityTextBox.Text = timeLog.LastEntry.Text;
+                activityTextBox.SelectionStart = activityTextBox.Text.Length;
+            }
+            else if (e.KeyCode == Keys.Up)
+            {
+                activityTextBox.Text = "";
+            }
         }
     }
 }

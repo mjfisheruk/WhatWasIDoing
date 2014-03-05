@@ -58,6 +58,7 @@
             this.activityTextBox.Name = "activityTextBox";
             this.activityTextBox.Size = new System.Drawing.Size(753, 20);
             this.activityTextBox.TabIndex = 1;
+            this.activityTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.activityTextBox_KeyDown);
             // 
             // saveButton
             // 
@@ -112,18 +113,19 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(16, 64);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(56, 13);
+            this.label2.Size = new System.Drawing.Size(163, 13);
             this.label2.TabIndex = 4;
-            this.label2.Text = "Last entry:";
+            this.label2.Text = "Last entry (down arrow to select):";
             // 
             // lastEntryLabel
             // 
-            this.lastEntryLabel.AutoSize = true;
+            this.lastEntryLabel.AutoEllipsis = true;
             this.lastEntryLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lastEntryLabel.Location = new System.Drawing.Point(78, 64);
+            this.lastEntryLabel.Location = new System.Drawing.Point(185, 64);
             this.lastEntryLabel.Name = "lastEntryLabel";
-            this.lastEntryLabel.Size = new System.Drawing.Size(0, 13);
+            this.lastEntryLabel.Size = new System.Drawing.Size(425, 13);
             this.lastEntryLabel.TabIndex = 5;
+            this.lastEntryLabel.Text = "                             ";
             // 
             // EntryForm
             // 
