@@ -144,7 +144,7 @@
             this.Name = "EntryForm";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "What the hell were you doing?";
+            this.Text = "What were you doing?";
             this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EntryForm_FormClosing);
             this.iconContextMenu.ResumeLayout(false);
