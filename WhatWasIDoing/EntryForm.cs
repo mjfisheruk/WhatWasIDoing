@@ -11,9 +11,9 @@ namespace WhatWasIDoing
 {
     public partial class EntryForm : Form
     {
-        bool firstTimeRunning;
-        bool closeRequestedFromMenu;
-        TimeLog timeLog;
+        private bool firstTimeRunning;
+        private bool closeRequestedFromMenu;
+        private TimeLog timeLog;
 
         public EntryForm()
         {
@@ -36,7 +36,7 @@ namespace WhatWasIDoing
             
             if(timeLog.HasLastEntry)
             {
-                lastEntryLabel.Text = timeLog.LastEntry.Text;
+                LastEntryLabel.Text = timeLog.LastEntry.Text;
             }
             
             base.SetVisibleCore(value);
@@ -45,14 +45,14 @@ namespace WhatWasIDoing
         private void hideAndResetTimer()
         {
             Hide();
-            reminderTimer.Stop();
-            reminderTimer.Start();
+            ReminderTimer.Stop();
+            ReminderTimer.Start();
         }
 
         private void notifyIcon_Click(object sender, EventArgs e)
         {
             Show();
-            activityTextBox.Text = "";
+            ActivityTextBox.Text = "";
         }
 
         private void EntryForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -76,8 +76,8 @@ namespace WhatWasIDoing
 
         private void saveButton_Click(object sender, EventArgs e)
         {
-            timeLog.SaveEntry(activityTextBox.Text);
-            activityTextBox.Text = "";
+            timeLog.SaveEntry(ActivityTextBox.Text);
+            ActivityTextBox.Text = "";
             hideAndResetTimer();
         }
 
@@ -96,12 +96,12 @@ namespace WhatWasIDoing
         {
             if (e.KeyCode == Keys.Down)
             {
-                activityTextBox.Text = timeLog.LastEntry.Text;
-                activityTextBox.SelectionStart = activityTextBox.Text.Length;
+                ActivityTextBox.Text = timeLog.LastEntry.Text;
+                ActivityTextBox.SelectionStart = ActivityTextBox.Text.Length;
             }
             else if (e.KeyCode == Keys.Up)
             {
-                activityTextBox.Text = "";
+                ActivityTextBox.Text = "";
             }
         }
     }

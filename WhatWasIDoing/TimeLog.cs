@@ -8,13 +8,18 @@ namespace WhatWasIDoing
 {
     class TimeLog
     {
-        String baseDirectory;
+        private String baseDirectory;
+
+        public TimeLog(String baseDirectory)
+        {
+            this.baseDirectory = baseDirectory;
+        }
 
         public bool HasLastEntry
         {
             get
             {
-                return entriesToday().Count != 0;
+                return EntriesToday().Count != 0;
             }
         }
 
@@ -22,13 +27,8 @@ namespace WhatWasIDoing
         {
             get
             {
-                return entriesToday().Last();
+                return EntriesToday().Last();
             }
-        }
-
-        public TimeLog(String baseDirectory)
-        {
-            this.baseDirectory = baseDirectory;
         }
 
         public void SaveEntry(String text)
@@ -38,13 +38,13 @@ namespace WhatWasIDoing
         
         public void SaveEntry(LogEntry entry)
         {
-            String dir = entryDirectory(entry.Time);
+            String dir = EntryDirectory(entry.Time);
             if (!Directory.Exists(dir))
             {
                 Directory.CreateDirectory(dir);
             }
 
-            String path = entryPath(entry.Time);
+            String path = EntryPath(entry.Time);
             TextWriter writer = File.AppendText(path);
             writer.WriteLine(entry.ToString());
             writer.Close();
@@ -60,23 +60,23 @@ namespace WhatWasIDoing
             SaveEntry("[Shutdown]");
         }
 
-        private string entryDirectory(DateTime dateTime)
+        private string EntryDirectory(DateTime dateTime)
         {
             var year = dateTime.ToString("yyyy");
             var month = dateTime.ToString("MMM");
             return baseDirectory + "\\" + year + "\\" + month;
         }
 
-        private string entryPath(DateTime dateTime)
+        private string EntryPath(DateTime dateTime)
         {
-            return entryDirectory(dateTime) + "\\" + dateTime.ToString("yyyy-MM-dd") + ".txt";
+            return EntryDirectory(dateTime) + "\\" + dateTime.ToString("yyyy-MM-dd") + ".txt";
         }
 
-        private List<LogEntry> entriesToday()
+        private List<LogEntry> EntriesToday()
         {
             var result = new List<LogEntry>();
                 
-            String path = entryPath(DateTime.Now);
+            String path = EntryPath(DateTime.Now);
             if (File.Exists(path))
             {
                 string[] lines = File.ReadAllLines(path);
