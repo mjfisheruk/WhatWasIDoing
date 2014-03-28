@@ -77,10 +77,13 @@ namespace WhatWasIDoing
             var result = new List<LogEntry>();
                 
             String path = entryPath(DateTime.Now);
-            string[] lines = File.ReadAllLines(path);
-            foreach (var line in lines)
+            if (File.Exists(path))
             {
-                result.Add(LogEntry.FromString(line, DateTime.Now.Date));
+                string[] lines = File.ReadAllLines(path);
+                foreach (var line in lines)
+                {
+                    result.Add(LogEntry.FromString(line, DateTime.Now.Date));
+                }
             }
 
             return result;
